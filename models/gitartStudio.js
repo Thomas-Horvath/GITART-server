@@ -1,6 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const InstrumentSchema = new Schema({
+  name: { type: String, required: true },
+  type: { type: String, required: true },
+  description: { type: String, required: true },
+  features: [{ type: String, required: true }]
+});
+
 const EquipmentSchema = new Schema({
   brand: { type: String, required: true },
   model: { type: String, required: true },
@@ -21,6 +28,8 @@ const DawSchema = new Schema({
   description: { type: String, required: true }
 });
 
+
+
 const StudioSchema = new Schema({
   id: { type: Number, required: true },
   name: { type: String, required: true },
@@ -33,8 +42,13 @@ const StudioSchema = new Schema({
     audio_interface: EquipmentSchema,
     daw: DawSchema
   },
-  description: { type: String, required: true }
+  instruments: {
+    type: [InstrumentSchema],
+    default: undefined  // Nem hoz létre üres tömböt, ha nincs adat
+  }
+
 });
+
 
 
 /*
@@ -45,8 +59,7 @@ const StudioSchema = new Schema({
   a harmadik paraméter ('studio') pedig az adatbázisban használt gyűjtemény neve.
   Így biztosíthatod, hogy a studio nevű gyűjtemény legyen használva az adatbázisban,
   és ne hozza létre automatikusan a studios gyűjteményt.
-*/ 
-
+*/
 
 const Studio = mongoose.model('studio', StudioSchema, 'studio');
 
