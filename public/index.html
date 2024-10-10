@@ -1,11 +1,315 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gitart - API - Dokumentáció</title>
+    <title>EGS - API</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <h1>Hamarosan..</h1>
+    <div class="hero">
+        <h1>GitArt Stúdió és Próbaterem - API</h1>
+        <p class="sub-title">Dokumentáció</p>
+        <div class="contents-container">
+            <h3>Tartalomjegyzék:</h3>
+            <ul class="contents-list">
+                <li><a href="#login">Bejelentkezés</a></li>
+                <li><a href="#register">Felhasználó regisztráció</a></li>
+                <li><a href="#users">Összes felhasználó lekérdezése</a></li>
+                <li><a href="#bookings">Összes foglalás lekérdezése</a></li>
+                <li><a href="#profile">Saját profil lekérdezése</a></li>
+                <li><a href="#ownBookings">Saját foglalások lekérdezése</a></li>
+                <li><a href="#newBooking">Foglalás leadása</a></li>
+                <li><a href="#rooms">Próbatermek adatai</a></li>
+                <li><a href="#studio">Stúdió adatai</a></li>
+            </ul>
+        </div>
+    </div>
+    <main>
+        <div class="container" id="login">
+            <div class="content">
+                <h2>Bejelentkezés <q class="green">Token nélkül elérhető útvonal</q></h2>
+                <p>
+                    Egy resgisztrál felhasználó a terem folaláshoz vagy a foglalások megtekintéséhez itt tud
+                    bejelentkezni.
+                </p>
+                <p>Bejelentkezés után egy tokent kapunk válaszként.</p>
+                <h3>Példa felhaználó:</h3>
+
+                <ul>
+                    <li>email cím: testuser@gmail.com</li>
+                    <li>jelszó: Password</li>
+                </ul>
+
+
+            </div>
+            <pre>
+            <code class="language-javascript">
+    fetch('https://gitart.thomasapi.eu/login', {
+        method: 'POST',
+        headers: {
+             "Content-Type": "application/json; charset=UTF-8" 
+        },  
+        mode: "cors",  
+        body: JSON.stringify({
+            "EmailAddress": "testuser@gmail.com",
+            "Password": "Password"
+        })
+    })
+    .then(res => res.json())
+    .then(console.log);
+        </code>
+    </pre>
+            <button class="copy-button">Kód</button>
+        </div>
+
+
+
+
+        <div class="container" id="register">
+            <div class="content">
+                <h2>Felhasználó regisztráció <q class="green">Token nélkül elérhető útvonal</q></h2>
+                <p>Itt lehet új felhasználóként regisztrálni.
+                </p>
+                <p>A rendszer már regisztrált email címet nem enged mégegyszer regisztrálni.</p>
+            </div>
+            <pre>
+        <code class="language-javascript">
+    fetch('https://gitart.thomasapi.eu/register', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+        },
+        mode: "cors",
+        body: JSON.stringify({
+                "Password" : "Password",                    
+                "LastName" : "New",
+                "FirstName" : "User",
+                "EmailAddress" : "new.user@gmail.com",     
+                "PhoneNumber" : "",
+                "BookingName": "",
+                "PolicyAccept": true
+            })
+    })
+    .then(res => res.json())
+    .then(console.log);
+        </code>
+    </pre>
+            <button class="copy-button">Kód</button>
+        </div>
+
+
+
+
+
+        <div class="container" id="users">
+            <div class="content">
+                <h2>Az összes felhasználó adatainak lekérése <q class="green">Token nélkül elérhető útvonal</q>
+                </h2>
+            </div>
+            <pre>
+        <code class="language-javascript">
+    fetch('https://gitart.thomasapi.eu/users', {      
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+        },
+        mode: "cors"
+    })
+    .then(res => res.json())
+    .then(console.log);
+        </code>
+    </pre>
+            <button class="copy-button">Kód</button>
+        </div>
+
+
+
+
+        <div class="container" id="bookings">
+            <div class="content">
+                <h2>Az összes teremfoglalás lekérése <q class="green">Token nélkül elérhető útvonal</q>
+                </h2>
+            </div>
+            <pre>
+        <code class="language-javascript">
+    fetch('https://gitart.thomasapi.eu/bookings', {      
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+        },
+        mode: "cors"
+    })
+    .then(res => res.json())
+    .then(console.log);
+        </code>
+    </pre>
+            <button class="copy-button">Kód</button>
+        </div>
+
+
+
+        <div class="container" id="profile">
+            <div class="content">
+                <h2>Saját profil lekérdezése <q class="pink">Tokennel elérhető útvonal</q>
+                </h2>
+
+                <p>A felhasználó saját adatait kapjuk meg.</p>
+            </div>
+            <pre>
+        <code class="language-javascript">
+    fetch('https://gitart.thomasapi.eu/profile', {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+            "Authorization": "Bearer saját-token"                     // a saját-token helyére a bejelentkezésnél kapott tokent kell bemásolni
+        },
+        mode: "cors"
+    })
+    .then(res => res.json())
+    .then(console.log);
+        </code>
+    </pre>
+            <button class="copy-button">Kód</button>
+        </div>
+
+
+
+
+        <div class="container" id="ownBookings">
+            <div class="content">
+                <h2>Saját foglalások lekérdezése <q class="pink">Tokennel elérhető útvonal</q>
+                </h2>
+
+                <p>A felhasználó saját foglalásait kapjuk meg.</p>
+            </div>
+            <pre>
+        <code class="language-javascript">
+    fetch('https://gitart.thomasapi.eu/own-bookings', {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+            "Authorization": "Bearer saját-token"                     // a saját-token helyére a bejelentkezésnél kapott tokent kell bemásolni
+        },
+        mode: "cors"
+    })
+    .then(res => res.json())
+    .then(console.log);
+        </code>
+    </pre>
+            <button class="copy-button">Kód</button>
+        </div>
+
+
+
+
+        <div class="container" id="newBooking">
+            <div class="content">
+                <h2>Foglalás leadása <q class="pink">Tokennel elérhető útvonal</q></h2>
+
+                <p>A kiválasztott terem kiválasztott óráira lehet foglalást leadni.</p>
+                <p>Foglalás csak a jelenlegi dátum után szabad időpont esetén lehetséges.</p>
+            </div>
+            <pre>
+        <code class="language-javascript">
+    fetch('https://gitart.thomasapi/new-booking', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+            "Authorization": "Bearer saját-token"                     // a saját-token helyére a bejelentkezésnél kapott tokent kell bemásolni
+        },
+        mode: "cors",
+        body: JSON.stringify({
+            "UserID": "977894",
+            "BookingDate": "2024-10-30",                            // Foglalás csak a jelenlegi dátum után szabad időpont esetén lehetséges!
+            "Room": "Terem 3",
+            "Hours": [10, 11, 12],
+            "Name": "Kovács Péter",
+            "BookingName": "Kovács Band"
+        })
+    })
+    .then(res => res.json())
+    .then(console.log);
+        </code>
+    </pre>
+            <button class="copy-button">Kód</button>
+        </div>
+
+
+
+        <div class="container" id="rooms">
+            <div class="content">
+                <h2>A próbatermek adatait kapjuk meg <q class="green">Token nélkül elérhető útvonal</q>
+                </h2>
+            </div>
+            <pre>
+        <code class="language-javascript">
+    fetch('https://gitart.thomasapi.eu/rooms', {      
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+        },
+        mode: "cors"
+    })
+    .then(res => res.json())
+    .then(console.log);
+        </code>
+    </pre>
+            <button class="copy-button">Kód</button>
+        </div>
+
+
+
+
+        
+        <div class="container" id="studio">
+            <div class="content">
+                <h2>A stúdió adatait kapjuk meg <q class="green">Token nélkül elérhető útvonal</q>
+                </h2>
+            </div>
+            <pre>
+        <code class="language-javascript">
+    fetch('https://gitart.thomasapi.eu/studio', {      
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+        },
+        mode: "cors"
+    })
+    .then(res => res.json())
+    .then(console.log);
+        </code>
+    </pre>
+            <button class="copy-button">Kód</button>
+        </div>
+
+
+
+
+
+     
+
+
+
+
+
+       
+
+
+
+
+
+
+    </main>
+
+    <footer>
+        <p>Copyright &copy; 2024, Thomas Horvath</p>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="./app.js"></script>
 </body>
+
 </html>
