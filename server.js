@@ -24,16 +24,10 @@ app.use(cors(corsOptions));
 
 //konzolra íratjuk a kéréseket és az urlt
 app.use((req, res, next) => {
-  console.log(`Received ${req.method} request for ${req.url}`);
+  console.log(`Beérkezett ${req.method} kérés a következő URL-re: ${req.url}`);
   next();
 });
-
-app.options('*', cors(corsOptions));
-
-app.use((req, res, next) => {
-  console.log(`${req.method} ${req.url}`);
-  next();
-});
+ 
 
 
 
@@ -56,18 +50,25 @@ app.use(express.json());
 // az útvonalak 
 app.use('/', GitartRouts)
 
+ 
 
-
-app.get('/favicon' , (req, res) => {
+app.get('/favicon.ico' , (req, res) => {
 res.sendFile(path.join(__dirname, 'favicon.png'))
 });
 
 
+
 // Ha nem megfelelő az URL hibát küldünk vissza
-app.get("*", (req, res) => {
-  res.status(404).send({ status: 404 });
+app.use((req, res, next) => {
+  res.status(404).json({ error: 'Az oldal nem található!' });
 });
 
+
+// Egyéb hibák kezelése
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Szerver hiba!' });
+});
 
 
 

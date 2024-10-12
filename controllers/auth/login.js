@@ -1,16 +1,27 @@
 const jwt = require('jsonwebtoken');
-const User = require('../../models/users.js'); 
+const User = require('../../models/users.js');
 
 
 //* Bejelentkezés és token generálás
 
 const login = async (req, res) => {
-    const { EmailAddress , Password } = req.body;
+    const { EmailAddress, Password, LoginAttempts } = req.body;
 
     try {
+        // Ellenőrizzük, hogy létezik-e a felhasználó
         const user = await User.findOne({ EmailAddress });
-        if (!user || !(await user.comparePassword(Password))) {
-            return res.status(401).json({ message: 'Hibás felhasználónév vagy jelszó' });
+        if (!user) {
+            // Ha az email cím hibás
+            return res.status(401).json({ message: 'Hibás email cím!' });
+        }
+
+        // Ellenőrizzük a jelszót
+        const isPasswordValid = await user.comparePassword(Password);
+        if (!isPasswordValid) {
+            if (LoginAttempts === 4) {
+                console.log('Túl sok sikertelen bejelentkezési kísérlet. Küldjünk email!!');
+            }
+            return res.status(401).json({ message: 'Hibás jelszó!' });
         }
 
         const token = jwt.sign(

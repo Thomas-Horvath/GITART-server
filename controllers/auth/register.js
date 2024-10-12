@@ -17,8 +17,10 @@ const register = async (req, res) => {
 
 
     try {
+         // Alakítsd a beérkezett email címet kisbetűssé
+         const normalizedEmail = EmailAddress.toLowerCase();
         // Ellenőrizzük, hogy a felhasználónév vagy email már létezik-e
-        const existingUser = await User.findOne( {EmailAddress});
+        const existingUser = await User.findOne( {EmailAddress: normalizedEmail} );
         if (existingUser) {
             return res.status(400).json({ message: 'Ezzel az email címmel már regisztráltak!' });
         }
