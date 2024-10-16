@@ -13,6 +13,7 @@ const { getAllBookings } = require('../controllers/booking/getAllBooking.js');
 const { createBooking } = require('../controllers/booking/creatBooking.js');
 const { getUserBookings } = require('../controllers/booking/getUserBookings.js');
 const { deleteBooking } = require('../controllers/booking/deleteOneBooking.js');
+const  sendEmail = require('../controllers/sendMail/sendMail.js');
 
 
 const router = express.Router();
@@ -29,5 +30,7 @@ router.get('/bookings', getAllBookings)
 router.post('/new-booking', authenticate, createBooking)
 router.get('/own-bookings' , authenticate, getUserBookings )
 router.delete('/delete-booking/:id', authenticate, deleteBooking);
+
+router.post('/send-email', sendEmail)
 
 module.exports = router;

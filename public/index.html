@@ -26,6 +26,7 @@
                 <li><a href="#newBooking">Foglalás leadása</a></li>
                 <li><a href="#rooms">Próbatermek adatai</a></li>
                 <li><a href="#studio">Stúdió adatai</a></li>
+                <li><a href="#sendEmail">Email küldés</a></li>
             </ul>
         </div>
     </div>
@@ -265,7 +266,7 @@
 
 
 
-        
+
         <div class="container" id="studio">
             <div class="content">
                 <h2>A stúdió adatait kapjuk meg <q class="green">Token nélkül elérhető útvonal</q>
@@ -291,13 +292,94 @@
 
 
 
-     
+        <div class="container" id="sendEmail">
+            <div class="content">
+                <h2>Email küldési funkció <q class="green">Token nélkül elérhető útvonal</q></h2>
+                <p>Email értesítés küldése, regisztráció, teremfoglalás, foglalás törlése és 6 hibás bejelentkezési
+                    kísérlet esetén.
+                </p>
+                <p>A levelezés kivitelezése a python smtplib modul valamint a nodejs child_process modul használatával
+                    készült!</p>
+                <p>A rendszer négy eseményre reagál amelyekre a négy előre meghatározott email típussal tud válaszolni:
+                </p>
+                <ol>
+                    <li>registration_success</li>
+                    <li>booking_success</li>
+                    <li>booking_cancellation</li>
+                    <li>login_attempt_warning</li>
+                </ol>
+                <p>A szerver az összes adatot elvárja , viszont ellenőrzi, hogy melyik üzenetfajtához mik az elvárt
+                    adatok és ami nem szükséges ott elfogadja az üres string értéket is!</p>
+
+
+                <h3>Például:</h3>
+                <p>Foglalásnál minden adat szükséges:</p>
+                <pre class="example">
+{
+    "emailType": "booking_success",
+    "email": "példa@gmail.com",
+    "details": {
+        "username":"Kiss Pista", 
+        "room":  "Terem 3",
+        "date": "2024-11-10",
+        "startTime": "14",
+        "endTime": "20"
+    },
+    "subject": "Sikeres Foglalás"
+}
+</pre>
+                <p>A regisztrációnál csak felhsználónév kötelező a details objektumban:</p>
+<pre class="example">
+{
+    "emailType": "registration_success",
+    "email": "példa@gmail.com",
+    "details": {
+        "username":"Kiss Pista",
+        "room":  "",
+        "date": "",
+        "startTime": "",
+        "endTime": ""
+    },
+    "subject": "Sikeres Regisztráció"
+}
+</pre>
+            </div>
+            <pre>
+        <code class="language-javascript">
+    fetch('https://gitart.thomasapi.eu/send-email', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+        },
+        mode: "cors",
+        body: JSON.stringify({
+                "emailType": "booking_success",
+                "email": "regisztrál email cím",    // itt már egy regisztrált felhazsnáló email címét kell megadni
+                "details": {
+                      "username":"Kiss Pista", 
+                      "room":  "Terem 3",
+                      "date": "2024-11-10",         
+                      "startTime": "14",
+                      "endTime": "20"
+                    },
+                "subject": "Sikeres Foglalás"
+            })
+    })
+    .then(res => res.json())
+    .then(console.log);
+        </code>
+    </pre>
+            <button class="copy-button">Kód</button>
+        </div>
 
 
 
 
 
-       
+
+
+
+
 
 
 

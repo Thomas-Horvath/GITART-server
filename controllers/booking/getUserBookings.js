@@ -1,4 +1,5 @@
 const Booking = require('../../models/booking');
+const User = require('../../models/users');
 
 
 const getUserBookings = async (req, res) => {
