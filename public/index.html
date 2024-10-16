@@ -210,14 +210,14 @@
 
         <div class="container" id="deleteBooking">
             <div class="content">
-                <h2>Egy foglalások törlése <q class="pink">Tokennel elérhető útvonal</q>
+                <h2>Egy foglalás törlése <q class="pink">Tokennel elérhető útvonal</q>
                 </h2>
 
                 <p>A felhasználó saját foglalásai közül törölheti ami a jelen dátum után következő napokon lett foglalva.</p>
             </div>
             <pre>
         <code class="language-javascript">
-    fetch('https://gitart.thomasapi.eu//delete-booking/id', {    // az törlendő foglalás _id -ja
+    fetch('https://gitart.thomasapi.eu/delete-booking/id', {    // az törlendő foglalás _id -ja
         method: "DELETE",
         headers: {
             "Content-Type": "application/json; charset=UTF-8",
