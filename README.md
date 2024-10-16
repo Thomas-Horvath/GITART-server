@@ -27,6 +27,7 @@
             4. /bookings         (GET)
             5. /rooms            (GET)
             6. /studio           (GET)
+            7. /send-email       (POST)
         
 
         -  tokennel elérhető útvonalak:
