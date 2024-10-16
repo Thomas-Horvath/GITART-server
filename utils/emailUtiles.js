@@ -64,7 +64,7 @@ const generateEmailBody = (emailType, details, email) => {
             return details.username ? `
             <div style="width: 500px">
                 <h1 style="color: #111111;">Kedves ${details.username},</h1>
-                <p style="color: #111111;">Túl sokszor próbált hibás jelszóval belépni a ${email} emailcímhez tartozó fiókjába. Kérlek, új jelszó igényléshez lépj velünk kapcsolatba!</p>
+                <p style="color: #111111;">Túl sokszor próbált hibás jelszóval belépni a ${email} email címhez tartozó fiókjába. Kérjük, új jelszó igényléshez lépjen velünk kapcsolatba!</p>
                 <p style="color: #111111;">Ha ön próbált belépni, 5 perc elteltével újra próbálkozhat a helyes jelszó megadásával!</p>
                 <hr />
                 <p style="color: #111111;">Üdvözlettel,</p>

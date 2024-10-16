@@ -4,7 +4,7 @@ const getStudio = async (req, res) => {
   try {
     const studio = await Studio.find();
     res.status(200).json(studio);
-    console.log(studio)
+   
   } catch (error) {
     console.error('Hiba történt a stúdió adatainak lekérdezése során:', error);
     res.status(500).json({ error: 'Hiba történt a stúdió adatainak lekérdezése során' });
