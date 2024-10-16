@@ -21,20 +21,22 @@
 
         - token nélkül elérhető:
         
-            1. /login            (POST)             
-            2. /register         (POST)
-            3. /users            (GET)
-            4. /bookings         (GET)
-            5. /rooms            (GET)
-            6. /studio           (GET)
-            7. /send-email       (POST)
+            1. /login                (POST)             
+            2. /register             (POST)
+            3. /users                (GET)
+            4. /bookings             (GET)
+            5. /rooms                (GET)
+            6. /studio               (GET)
+            7. /send-email           (POST)
         
 
         -  tokennel elérhető útvonalak:
 
-            7. /profile          (GET)
-            8 /new-booking       (POST)
-            9. /own-bookings     (GET)
+            8. /profile              (GET)
+            9 /new-booking           (POST)
+            10. /own-bookings        (GET)
+            11. /delete-booking/id   (DELETE)
+
         
     
 
