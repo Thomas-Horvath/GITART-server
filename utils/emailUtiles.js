@@ -48,7 +48,7 @@ const generateEmailBody = (emailType, details, email) => {
             return `
             <div style="width: 500px">
                 <h1 style="color: #111111;">Kedves ${details.username},</h1>
-                <p style="color: #111111;">A <strong>${details.date}</strong> dátomú foglalását sikeresen töröltük.</p>
+                <p style="color: #111111;">A <strong>${details.date}</strong> dátumú foglalását sikeresen töröltük.</p>
                 <p style="color: #111111;">A foglalás részletei:</p>
                 <ul>
                     <li><p style="color: #111111;">A foglalás dőpontja:<strong> ${details.startTime}</strong> és <strong> ${details.endTime}</strong> óra között.</p></li>

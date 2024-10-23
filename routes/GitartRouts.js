@@ -24,13 +24,13 @@ router.get('/rooms', getAllRooms);
 router.get('/studio', getStudio);
 router.get('/users', getAllUsers);
 router.get('/profile', authenticate,  getOwnProfile);
-router.post('/register', register)
-router.post('/login', login)
-router.get('/bookings', getAllBookings)
-router.post('/new-booking', authenticate, createBooking)
-router.get('/own-bookings' , authenticate, getUserBookings )
+router.post('/register', register);
+router.post('/login', login);
+router.get('/bookings', getAllBookings);
+router.post('/new-booking', authenticate, createBooking);
+router.get('/own-bookings' , authenticate, getUserBookings );
 router.delete('/delete-booking/:id', authenticate, deleteBooking);
 
-router.post('/send-email', sendEmail)
+router.post('/send-email', sendEmail);
 
 module.exports = router;
