@@ -26,6 +26,10 @@ const bookingSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    ReminderSent: {
+        type: Boolean,
+        default: false
+    },
 }, { timestamps: true });
 
 const Booking = mongoose.model('Booking', bookingSchema);

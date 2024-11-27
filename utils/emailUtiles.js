@@ -5,6 +5,7 @@ const EmailTypes = {
     BOOKING_SUCCESS: 'booking_success',
     BOOKING_CANCELLATION: 'booking_cancellation',
     LOGIN_ATTEMPT_WARNING: 'login_attempt_warning',
+    REMINDER_EMAIL: 'reminder_email',
 };
 
 const generateEmailBody = (emailType, details, email) => {
@@ -71,6 +72,28 @@ const generateEmailBody = (emailType, details, email) => {
                 <h3 style="color: #111111;">GitArt Stúdió és Próbaterem</h3>
             </div>
             ` : 'Hiányzó adat, az e-mail nem küldhető el.';
+
+
+
+        case EmailTypes.REMINDER_EMAIL:
+            if (!details.room || !details.date || !details.startTime || !details.endTime) {
+                return 'Hiányzó adat, az e-mail nem küldhető el.';
+            }
+            return `
+                <div style="width: 500px">
+                    <h1 style="color: #111111;">Kedves ${details.username},</h1>
+                    <p style="color: #111111;"> Ez egy emlékeztető, hogy Önnek foglalása van ${details.date} dátumra.</p>
+                    <p style="color: #111111;">A foglalás részletei:</p>
+                <ul>
+                    <li><p style="color: #111111;">A foglalás dőpontja:<strong> ${details.startTime}</strong> és <strong> ${details.endTime}</strong> óra között.</p></li>
+                    <li><p style="color: #111111;">A foglalt terem:<strong> "${details.room}"</strong></p></li>
+                </ul>
+                    <hr />
+                    <p style="color: #111111;">Üdvözlettel,</p>
+                    <h3 style="color: #111111;">GitArt Stúdió és Próbaterem</h3>
+                </div>
+                `
+
 
         default:
             return 'Ismeretlen e-mail típus.';

@@ -5,11 +5,18 @@ const dotenv = require("dotenv");
 const connectDB = require('./config/db');
 const GitartRouts = require('./routes/GitartRouts.js');
 
+// a scheduleEmail.js fájl elindítja az ütemezést az emlékeztető emailek küldéséhez
+require('./controllers/sendMail/scheduleEmail'); 
+ 
+
  
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+
+
 
 const corsOptions = { 
   origin: '*',

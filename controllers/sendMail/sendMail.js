@@ -5,6 +5,8 @@ require('dotenv').config();
 const sendEmail = async (req, res) => { 
     const recipientEmail = req.body.email;
     const emailType = req.body.emailType;
+
+
     const details = req.body.details;
     const subject = req.body.subject;
     const body = generateEmailBody(emailType, details,recipientEmail);
