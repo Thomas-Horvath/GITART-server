@@ -38,7 +38,7 @@ const sendReminderEmail = (recipientEmail, subject, body) => {
 // Foglalások ellenőrzése és emlékeztető küldés
 const checkAndSendReminders = async () => {
     try {
-        const now = new Date(); //* ez egy órával kevesebbet ad vissza a hlyei időnél 
+        const now = new Date(); //* ez egy órával kevesebbet ad vissza a helyi időnél 
      
 
         // Foglalások lekérdezése
