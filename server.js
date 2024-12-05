@@ -14,7 +14,7 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+ 
 
 
 
@@ -34,7 +34,11 @@ app.use((req, res, next) => {
   console.log(`Beérkezett ${req.method} kérés a következő URL-re: ${req.url}`);
   next();
 });
- 
+
+
+
+
+
 
 
 

@@ -38,7 +38,8 @@ const sendReminderEmail = (recipientEmail, subject, body) => {
 // Foglalások ellenőrzése és emlékeztető küldés
 const checkAndSendReminders = async () => {
     try {
-        const now = new Date();
+        const now = new Date(); //* ez egy órával kevesebbet ad vissza a hlyei időnél 
+     
 
         // Foglalások lekérdezése
         const bookings = await Booking.find({ ReminderSent: false }); // Csak azok a foglalások, amelyekhez még nem küldtünk emlékeztetőt
@@ -49,15 +50,20 @@ const checkAndSendReminders = async () => {
             // Foglalási időpont létrehozása a BookingDate és az Hours[0] alapján
             const bookingDateTime = new Date(booking.BookingDate);
             bookingDateTime.setHours(booking.Hours[0], 0, 0, 0); // Az első óra alapján beállítva
+            
+
 
             // 24 órával az esemény előtt számított idő
             const reminderTime = new Date(bookingDateTime);
             reminderTime.setHours(reminderTime.getHours() - 24);
-            // console.log(reminderTime, bookingDateTime, now);
+         
+
+
+            console.log(reminderTime, bookingDateTime, now);
 
 
 
-            // Ellenőrzés: ha most van az emlékeztető küldési időpontja
+            // Ellenőrzés: ha most van az emlékeztető küldési időpontja 
             if (now >= reminderTime && now < bookingDateTime) {
 
                 // Felhasználó lekérdezése
@@ -92,9 +98,9 @@ const checkAndSendReminders = async () => {
 };
 
 
-// Ütemezés: minden órában 5. percében ellenőrzi a foglalásokat
+// Ütemezés: minden óra 5. percében ellenőrzi a foglalásokat
 schedule.scheduleJob('5 * * * *', () => {
-    console.log('Foglalások ellenőrzése...');
+    console.log('Foglalások ellenőrzése...' , new Date());
     checkAndSendReminders();
 });
-
+  
